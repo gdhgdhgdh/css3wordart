@@ -186,12 +186,21 @@
     };
 
     BgWordArt.prototype.render = function () {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        var newWords = urlParams.get('words');
+        console.log(newWords);
+
+
         var fontSize = 40 + (Math.random() * 30);
         var clone = this.tmpl.content.cloneNode(true);
         var wa = clone.querySelector('.wordart');
+        var span = wa.querySelector('span');
         wa.className = wa.className + ' ' + this.selectedClass;
         wa.style.fontSize = fontSize + 'px';
         this.el = wa;
+        span.setAttribute('data-text', newWords);
+        span.innerHTML = newWords;
     };
 
     BgWordArt.prototype.availSize = function (dimension) {
@@ -302,9 +311,15 @@
         var clone = tmpl.content.cloneNode(true);
         var wa = clone.querySelector('.wordart');
         var span = wa.querySelector('span');
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        var newWords = urlParams.get('words');
+        console.log(newWords);
+
         wa.className = wa.className + ' ' + self.selectedStyle;
-        span.setAttribute('data-text', self.txt);
-        span.innerHTML = self.txt;
+        span.setAttribute('data-text', newWords);
+        span.innerHTML = newWords;
 
         self.resizable = clone.querySelector('.resizable');
         self.wordArtObj = self.resizable.querySelector('.wordart');
